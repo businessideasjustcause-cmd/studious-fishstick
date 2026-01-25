@@ -297,17 +297,16 @@ try {
   const answerKeyData = await answerKeyResponse.json();
   if (answerKeyData?.choices?.[0]?.message?.content) {
     let answerKeyText = answerKeyData.choices[0].message.content;
-    
-    // Use ensureLatexFormat instead of fixLatexToAscii to preserve math notation
-    answerKeyText = ensureLatexFormat(answerKeyText);
 
+    // 1. REMOVE ensureLatexFormat FROM HERE (It breaks the JSON structure)
     const jsonMatch = answerKeyText.match(/\[[\s\S]*?\]/);
+    
     if (jsonMatch) {
       const parsed = JSON.parse(jsonMatch[0]);
       if (Array.isArray(parsed)) {
         answerKey = parsed.map((answer, index) => ({
           id: index,
-          // Apply LaTeX formatting to individual answer strings
+          // 2. APPLY IT HERE ONLY to the individual string content
           text: ensureLatexFormat(String(answer).trim()),
         }));
       }
