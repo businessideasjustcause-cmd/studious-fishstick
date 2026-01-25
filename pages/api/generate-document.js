@@ -195,10 +195,11 @@ if (content.length === 0) {
 
 // --- Example Implementation of ensureLatexFormat (for context) ---
 function ensureLatexFormat(text) {
-    if (!text) return "";
-    
-    let formatted = text;
-    
+  if (!text) return ""; // Handle null/undefined
+  let formatted = text;
+  // Example: Replace special characters
+  formatted = formatted.replace(/\\/g, '\\textbackslash ');
+  return formatted;
     // Example conversions:
     // Convert 1/2 to \frac{1}{2}
     formatted = formatted.replace(/(\w+)\/(\w+)/g, "\\frac{$1}{$2}");
