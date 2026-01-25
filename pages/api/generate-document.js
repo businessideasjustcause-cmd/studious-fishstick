@@ -31,8 +31,7 @@ export default async function handler(req, res) {
   Difficulty: ${difficultyText}
   ${course ? `Course: ${course}` : ''}
 
-  IMPORTANT: Return LaTeX onlyon for fractions, exponents, square roots, and equations. For all other expressions, use plain ASCII notation. Do NOT use LaTeX for entire problems or instructions.
-  Examples of when to use LaTeX:
+  IMPORTANT: Return plain text only (no LaTeX). Use simple ASCII math notation:
   - Fractions like 3/4 or (3/4)
   - Exponents like x^2 or 2^3
   - Square roots like sqrt(16) or sqrt(x)
@@ -60,7 +59,7 @@ Subject: Science
 Difficulty: ${difficultyText}
 ${course ? `Course: ${course}` : ''}
 
-For any mathematical expressions or measurements, use LaTeX (e.g., E = mc^2, Delta T, v = d/t). Do NOT use ASCII.
+For any mathematical expressions or measurements, use plain ASCII notation (e.g., E = mc^2, Delta T, v = d/t). Do NOT use LaTeX.
 But focus primarily on science concepts, not math.
 
 Generate a JSON array of strings with the science questions/activities. Return ONLY valid JSON, no other text.
@@ -133,83 +132,56 @@ Example format: ["Question 1", "Question 2", ...]`;
       generatedText = data.choices[0].message.content;
     }
 
- // --- POST-PROCESSING: Ensure LaTeX is preserved and properly formatted ---
-function ensureLatexFormat(str) {
-    if (!str || typeof str !== 'string') return '';
-    let s = String(str);
+    // --- POST-PROCESSING: Convert/remove LaTeX and normalize to plain ASCII ---
+    function fixLatexToAscii(str) {
+      if (!str || typeof str !== 'string') return '';
+      let s = String(str);
+      // Convert common \frac{a}{b} -> (a/b)
+      s = s.replace(/\\frac\s*\{([^}]*)\}\s*\{([^}]*)\}/g, '($1/$2)');
+      // Remove dollar signs
+      s = s.replace(/\$/g, '');
+      // Replace some LaTeX symbols with simple equivalents
+      s = s.replace(/\\sqrt\s*\{([^}]*)\}/g, 'sqrt($1)');
+      s = s.replace(/\\times/g, 'x');
+      s = s.replace(/\\pi/g, 'pi');
+      // Remove backslash before letters (e.g., \alpha -> alpha)
+      s = s.replace(/\\([a-zA-Z]+)/g, '$1');
+      // Normalize whitespace
+      s = s.replace(/\s+/g, ' ').trim();
+      return s;
+    }
 
-    // 1. Normalize whitespace (optional, keeps text readable)
-    s = s.replace(/\s+/g, ' ').trim();
-
-    // 2. Do NOT remove dollar signs.
-    // 3. Do NOT convert \frac or \sqrt to plain text.
-    // 4. Optionally: Normalize inline LaTeX delimiters if necessary
-    // Example: s = s.replace(/\\(/g, '$').replace(/\\)/g, '$');
-
-    return s;
-}
-
-generatedText = ensureLatexFormat(generatedText);
+    generatedText = fixLatexToAscii(generatedText);
 
     console.log('Generated text sample:', generatedText.substring(0, 200));
 
-// Extract JSON array from the response
-const jsonMatch = generatedText.match(/\[[\s\S]*?\]/);
-let content = [];
+    // Extract JSON array from the response
+    const jsonMatch = generatedText.match(/\[[\s\S]*?\]/);
+    let content = [];
 
-if (jsonMatch) {
-    try {
+    if (jsonMatch) {
+      try {
         const parsed = JSON.parse(jsonMatch[0]);
         if (Array.isArray(parsed)) {
-            // Changed from fixLatexToAscii to ensureLatexFormat
-            content = parsed
-                .map(item => ensureLatexFormat(String(item).trim()))
-                .filter(item => item.length > 0);
+          content = parsed
+            .map(item => fixLatexToAscii(String(item).trim()))
+            .filter(item => item.length > 0);
         }
-    } catch (parseError) {
+      } catch (parseError) {
         console.error('JSON parse error:', parseError);
+      }
     }
-}
 
-// If parsing failed, try to extract individual questions
-if (content.length === 0) {
-    const lines = generatedText
+    // If parsing failed, try to extract individual questions
+    if (content.length === 0) {
+      const lines = generatedText
         .split('\n')
-        // Changed from fixLatexToAscii to ensureLatexFormat
-        .map(line => ensureLatexFormat(line.trim()))
+        .map(line => fixLatexToAscii(line.trim()))
         .filter(line => line.length > 5 && !line.includes('```'));
-
-    if (lines.length > 0) {
+      if (lines.length > 0) {
         content = lines.slice(0, requestedCount);
+      }
     }
-}
-
-// If still no content, return error
-if (content.length === 0) {
-    console.error('Could not extract content from response');
-    return res.status(500).json({
-        error: 'Could not generate valid content',
-        details: 'Try again or try a different topic'
-    });
-}
-
-// --- Example Implementation of ensureLatexFormat (for context) ---
-function ensureLatexFormat(text) {
-  if (!text) return ""; // Handle null/undefined
-  let formatted = text;
-  // Example: Replace special characters
-  formatted = formatted.replace(/\\/g, '\\textbackslash ');
-  return formatted;
-    // Example conversions:
-    // Convert 1/2 to \frac{1}{2}
-    formatted = formatted.replace(/(\w+)\/(\w+)/g, "\\frac{$1}{$2}");
-    // Convert x^2 to x^{2}
-    formatted = formatted.replace(/(\w+)\^(\w+)/g, "$1^{$2}");
-    // Convert sqrt(x) to \sqrt{x}
-    formatted = formatted.replace(/sqrt\((.*?)\)/g, "\\sqrt{$1}");
-    
-    return formatted;
-}
 
     // If still no content, return error
     if (content.length === 0) {
@@ -265,7 +237,7 @@ function ensureLatexFormat(text) {
     const answerKeyPrompt = `You are an expert educator. Generate concise answer keys for these ${requestedCount} questions/problems about "${topic}".
 
   Provide answers in a JSON array format matching the question count.
-  For math: show brief work using LaTeX (e.g., x = 5, \frac{3}{4}, \sqrt{9}). Do NOT use plain ASCII.
+  For math: show brief work using plain ASCII (e.g., x = 5, (3/4), sqrt(9)). Do NOT use LaTeX.
   For ELA: provide model answers or key points.
   For Science: explain the concept clearly.
 
@@ -293,29 +265,26 @@ function ensureLatexFormat(text) {
       }
     );
 
- let answerKey = [];
-try {
-  const answerKeyData = await answerKeyResponse.json();
-  if (answerKeyData?.choices?.[0]?.message?.content) {
-    let answerKeyText = answerKeyData.choices[0].message.content;
-
-    // 1. REMOVE ensureLatexFormat FROM HERE (It breaks the JSON structure)
-    const jsonMatch = answerKeyText.match(/\[[\s\S]*?\]/);
-    
-    if (jsonMatch) {
-      const parsed = JSON.parse(jsonMatch[0]);
-      if (Array.isArray(parsed)) {
-        answerKey = parsed.map((answer, index) => ({
-          id: index,
-          // 2. APPLY IT HERE ONLY to the individual string content
-          text: ensureLatexFormat(String(answer).trim()),
-        }));
+    let answerKey = [];
+    try {
+      const answerKeyData = await answerKeyResponse.json();
+      if (answerKeyData?.choices?.[0]?.message?.content) {
+        let answerKeyText = answerKeyData.choices[0].message.content;
+        answerKeyText = fixLatexToAscii(answerKeyText);
+        const jsonMatch = answerKeyText.match(/\[[\s\S]*?\]/);
+        if (jsonMatch) {
+          const parsed = JSON.parse(jsonMatch[0]);
+          if (Array.isArray(parsed)) {
+            answerKey = parsed.map((answer, index) => ({
+              id: index,
+              text: fixLatexToAscii(String(answer).trim()),
+            }));
+          }
+        }
       }
+    } catch (e) {
+      console.error('Answer key generation error:', e);
     }
-  }
-} catch (e) {
-  console.error('Answer key generation error:', e);
-}
 
     // Ensure answerKey length matches requestedCount
     if (!Array.isArray(answerKey) || answerKey.length === 0) {
