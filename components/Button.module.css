@@ -1,32 +1,89 @@
-button.btn {
-  margin: 0;
-  border: 1px solid #d1d1d1;
-  border-radius: 5px;
-  padding: 0.5em;
-  vertical-align: middle;
-  white-space: normal;
-  background: none;
-  line-height: 1;
+.btn {
+  position: relative;
+  overflow: hidden;
+  border: none;
+  border-radius: 0.5rem; /* rounded-lg */
+  padding: 0.65em 1.5em;
   font-size: 1rem;
   font-family: inherit;
-  transition: all 0.2s ease;
+  font-weight: 500;
+  cursor: pointer;
+  line-height: 1.2;
+  white-space: nowrap;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-button.btn {
-  padding: 0.65em 1em;
-  background: #0076ff;
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Hover + Press */
+.btn:hover:not(:disabled) {
+  transform: scale(1.05);
+}
+
+.btn:active:not(:disabled) {
+  transform: scale(0.95);
+}
+
+/* Focus ring */
+.btn:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(0, 118, 255, 0.4);
+}
+
+/* Ripple effect */
+.btn::after {
+  content: '';
+  position: absolute;
+  width: 300%;
+  height: 300%;
+  top: 50%;
+  left: 50%;
+  pointer-events: none;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  opacity: 0;
+  transition: transform 0.5s, opacity 0.5s;
+}
+
+.btn:active::after {
+  transform: translate(-50%, -50%) scale(1);
+  opacity: 1;
+  transition: transform 0s, opacity 0.3s;
+}
+
+/* ------------------ Variants ------------------ */
+.primary {
+  background-color: #0076ff;
   color: #fff;
-  border: none;
-  cursor: pointer;
-  transition: all 0.2s ease;
 }
-button.btn:focus {
-  outline: 0;
-  border-color: #0076ff;
+
+.primary:hover:not(:disabled) { background-color: #0065e0; }
+.primary:active:not(:disabled) { background-color: #0052b8; }
+
+.secondary {
+  background-color: #e2e8f0;
+  color: #1f2937;
 }
-button.btn:hover {
-  background: rgba(0, 118, 255, 0.8);
+
+.secondary:hover:not(:disabled) { background-color: #cbd5e1; }
+.secondary:active:not(:disabled) { background-color: #94a3b8; }
+
+.danger {
+  background-color: #dc2626;
+  color: #fff;
 }
-button.btn:focus {
-  box-shadow: 0 0 0 2px rgba(0, 118, 255, 0.5);
+
+.danger:hover:not(:disabled) { background-color: #b91c1c; }
+.danger:active:not(:disabled) { background-color: #991b1b; }
+
+.success {
+  background-color: #16a34a;
+  color: #fff;
 }
+
+.success:hover:not(:disabled) { background-color: #15803d; }
+.success:active:not(:disabled) { background-color: #166534; }
