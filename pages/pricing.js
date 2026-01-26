@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import { Check } from 'lucide-react'
-import NavHeader from '../components/NavHeader'
+import NavHeader from '@/components/NavHeader'
+import Footer from '../components/Footer'
 
 const plans = [
   {
@@ -86,7 +87,8 @@ export default function PricingPage() {
             ))}
           </div>
         </div>
+        <Footer />
       </main>
     </div>
   )
-}
+  }

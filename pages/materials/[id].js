@@ -268,10 +268,17 @@ export default function DocumentView({ session, loading: appLoading }) {
    }
  }
 
+ /**
+  * FIXED EXPORT TO PDF
+  * Correctly handles the binary stream from pdfkit and triggers a browser download
+  */
  const exportToPdf = async (includeAnswerKey = false) => {
    try {
-     const qs = questions.length > 0 ? questions.map(q => q.text) : ['[No questions]']
-     const aks = includeAnswerKey && answerKey.length > 0 ? answerKey.map(a => a.text) : []
+     setAlert({ message: 'Generating PDF...', type: 'info' });
+
+     const qs = questions.length > 0 ? questions.map(q => q.text) : ['[No questions]'];
+     const aks = includeAnswerKey && answerKey.length > 0 ? answerKey.map(a => a.text) : [];
+     
      const response = await fetch('/api/pdf', {
        method: 'POST',
        headers: { 'Content-Type': 'application/json' },
@@ -284,52 +291,72 @@ export default function DocumentView({ session, loading: appLoading }) {
          answerKey: aks,
          includeAnswerKey
        })
-     })
+     });
 
      if (!response.ok) {
-       throw new Error('Failed to generate PDF')
+       const errorData = await response.json();
+       throw new Error(errorData.details || 'Failed to generate PDF');
      }
 
-     const blob = await response.blob()
-     const downloadUrl = window.URL.createObjectURL(blob)
-     const a = document.createElement('a')
-     a.href = downloadUrl
-     a.download = `${(titleText || document.topic).replace(/\s+/g, '_')}_${includeAnswerKey ? 'with_answers' : 'questions_only'}.pdf`
-     document.body.appendChild(a)
-     a.click()
-     a.remove()
-     window.URL.revokeObjectURL(downloadUrl)
+     // 1. Convert response to Blob (Crucial for PDFkit streams)
+     const blob = await response.blob();
+     
+     // 2. Create a temporary URL for the blob
+     const downloadUrl = window.URL.createObjectURL(blob);
+     
+     // 3. Create and trigger download link
+     const a = window.document.createElement('a');
+     a.href = downloadUrl;
+     
+     // Sanitize filename: remove special characters and spaces
+     const cleanTitle = (titleText || document.topic).replace(/[^a-z0-9]/gi, '_').toLowerCase();
+     const suffix = includeAnswerKey ? 'with_answers' : 'questions';
+     a.download = `${cleanTitle}_${suffix}.pdf`;
+     
+     window.document.body.appendChild(a);
+     a.click();
+     
+     // 4. Cleanup
+     a.remove();
+     window.URL.revokeObjectURL(downloadUrl);
 
-     setAlert({ message: `PDF exported ${includeAnswerKey ? 'with answer key' : 'without answer key'}!`, type: 'success' })
+     setAlert({ message: `PDF exported successfully!`, type: 'success' });
    } catch (error) {
-     console.error('Error exporting PDF:', error)
-     setAlert({ message: 'Failed to export PDF', type: 'error' })
+     console.error('Error exporting PDF:', error);
+     setAlert({ message: error.message || 'Failed to export PDF', type: 'error' });
    }
- }
+ };
 
-
+ /**
+  * FIXED DELETE MATERIAL
+  * Handles the state during deletion and provides a smooth redirect
+  */
  const handleDelete = async () => {
-   if (!window.confirm('Are you sure you want to delete this material? This cannot be undone.')) return
+   const confirmMessage = 'Are you sure you want to delete this material? This cannot be undone.';
+   if (!window.confirm(confirmMessage)) return;
 
-
-   setDeleting(true)
+   setDeleting(true);
    try {
      const { error } = await supabase
        .from('documents')
        .delete()
-       .eq('id', id)
+       .eq('id', id);
 
+     if (error) throw error;
 
-     if (error) throw error
-     setAlert({ message: 'Material deleted', type: 'success' })
-     setTimeout(() => router.push('/materials'), 1500)
+     setAlert({ message: 'Material deleted successfully', type: 'success' });
+     
+     // Give the user a moment to see the success message
+     setTimeout(() => {
+       router.push('/materials');
+     }, 1200);
+     
    } catch (error) {
-     console.error('Error deleting:', error)
-     setAlert({ message: 'Failed to delete material', type: 'error' })
-   } finally {
-     setDeleting(false)
+     console.error('Error deleting:', error);
+     setAlert({ message: 'Failed to delete material', type: 'error' });
+     setDeleting(false); // Reset button state if deletion fails
    }
- }
+ };
 
 
  if (loading || !document) {

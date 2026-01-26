@@ -7,6 +7,7 @@ import {
   ArrowRight,
 } from 'lucide-react'
 import NavHeader from '../components/NavHeader'
+import Footer from '../components/Footer'
 
 export default function SchoolsPage() {
   return (
@@ -129,15 +130,8 @@ export default function SchoolsPage() {
             See School Pricing <ArrowRight className="w-4 h-4" />
           </Link>
         </section>
-
-        {/* Footer */}
-        <footer className="bg-white border-t border-slate-200 py-6">
-          <div className="max-w-7xl mx-auto px-6 flex justify-between text-sm text-slate-500">
-            <span>Draft</span>
-            <span>Built for educators</span>
-          </div>
-        </footer>
-      </main>
-    </div>
-  )
+      <Footer />
+    </main>
+  </div>
+)
 }

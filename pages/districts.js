@@ -9,6 +9,7 @@ import {
   Lock
 } from 'lucide-react'
 import NavHeader from '../components/NavHeader'
+import Footer from '../components/Footer'
 
 export default function DistrictsPage() {
   return (
@@ -139,7 +140,8 @@ export default function DistrictsPage() {
             Contact Sales <ArrowRight className="w-4 h-4" />
           </Link>
         </section>
-      </main>
-    </div>
-  )
+      <Footer />
+    </main>
+  </div>
+)
 }

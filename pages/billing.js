@@ -27,5 +27,6 @@ export default function Billing({ session, loading: appLoading }) {
         </div>
       </div>
     </Layout>
+    
   )
 }
