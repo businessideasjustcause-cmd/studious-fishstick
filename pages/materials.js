@@ -6,6 +6,8 @@ import {
   LayoutGrid, FileText, Calendar, GraduationCap, Search, X, 
   Plus, Trash2, CheckSquare, Sparkles, LayoutList
 } from 'lucide-react'
+import Footer from '@/components/Footer' 
+import LoginFooter from '@/components/Loginfooter'
 
 export default function MaterialsPage({ session, loading }) {
   const router = useRouter()
@@ -146,6 +148,7 @@ export default function MaterialsPage({ session, loading }) {
           </div>
         )}
       </div>
+      <LoginFooter />
     </Layout>
   )
 }

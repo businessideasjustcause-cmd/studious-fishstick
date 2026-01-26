@@ -4,6 +4,7 @@ import Layout from '../components/Layout'
 import DocumentForm from '../components/DocumentForm'
 import { createDocument } from '../lib/supabase'
 import { Sparkles, ArrowLeft, AlertCircle, FilePlus2, Wand2 } from 'lucide-react'
+import LoginFooter from '@/components/Loginfooter'
 
 export default function CreatePage({ session, loading: appLoading }) {
   const router = useRouter()
@@ -115,6 +116,7 @@ export default function CreatePage({ session, loading: appLoading }) {
           </p>
         </div>
       )}
+      <LoginFooter />
     </Layout>
   )
 }

@@ -5,133 +5,154 @@ import {
   BarChart3,
   FolderLock,
   ArrowRight,
+  Sparkles,
+  Zap,
+  CheckCircle2
 } from 'lucide-react'
 import NavHeader from '../components/NavHeader'
 import Footer from '../components/Footer'
 
 export default function SchoolsPage() {
   return (
-    <div className="bg-slate-50 min-h-screen animate-fade-in-up">
+    <div className="bg-[#FDFDFD] min-h-screen selection:bg-indigo-100">
       <NavHeader currentPage="schools" />
 
-      <main className="pt-24">
-        {/* Hero */}
-        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 grid md:grid-cols-2 gap-12 items-center">
-          <div>
-            <h1 className="text-4xl font-bold text-slate-900 mb-4">
-              Draft for Schools
-            </h1>
-            <p className="text-lg text-slate-600 mb-8">
-              Give your teachers powerful AI tools while maintaining
-              consistency, oversight, and control.
-            </p>
-            <div className="flex gap-4">
-              <Link
-                href="/pricing"
-                className="px-6 py-3 bg-indigo-600 text-white rounded-lg font-semibold hover:bg-indigo-700 flex items-center gap-2"
-              >
-                Get School Access <ArrowRight className="w-4 h-4" />
-              </Link>
-              <Link
-                href="/"
-                className="px-6 py-3 border border-slate-300 rounded-lg text-slate-700 hover:bg-slate-100 font-semibold"
-              >
-                Back to Home
-              </Link>
+      <main className="pt-32">
+        {/* Hero Section */}
+        <section className="max-w-7xl mx-auto px-6 py-20 relative overflow-hidden">
+          {/* Subtle Background Glows */}
+          <div className="absolute top-0 left-0 w-[500px] h-[500px] bg-indigo-50/50 blur-[100px] rounded-full -translate-x-1/2 -translate-y-1/2 pointer-events-none" />
+          
+          <div className="grid lg:grid-cols-12 gap-16 items-center relative z-10">
+            <div className="lg:col-span-7 animate-in fade-in slide-in-from-left-8 duration-700">
+              <div className="inline-flex items-center gap-2 px-3 py-1 bg-indigo-50 text-indigo-700 rounded-full text-[10px] font-black uppercase tracking-[0.2em] mb-6">
+                <Sparkles size={12} />
+                Institutional Tier
+              </div>
+              <h1 className="text-5xl md:text-7xl font-black text-slate-900 tracking-tight leading-[1.05] mb-8">
+                The Operating System for <span className="text-indigo-600">Modern Schools.</span>
+              </h1>
+              <p className="text-xl text-slate-500 font-medium leading-relaxed mb-10 max-w-xl">
+                DraftStudio for Schools provides a unified, secure workspace where teachers generate high-quality curriculum and administrators maintain complete oversight.
+              </p>
+              <div className="flex flex-wrap gap-4">
+                <Link
+                  href="/pricing"
+                  className="px-8 py-4 bg-indigo-600 text-white rounded-2xl font-bold text-lg hover:bg-indigo-700 flex items-center gap-3 transition-all shadow-xl shadow-indigo-100 active:scale-[0.98]"
+                >
+                  Get School Access <ArrowRight size={20} />
+                </Link>
+                <Link
+                  href="/contact"
+                  className="px-8 py-4 bg-white border border-slate-200 rounded-2xl text-slate-700 hover:bg-slate-50 font-bold text-lg transition-all"
+                >
+                  Contact Sales
+                </Link>
+              </div>
             </div>
-          </div>
 
-          <div className="bg-white rounded-2xl shadow-lg p-8 border border-slate-200">
-            <ul className="space-y-4">
-              <li className="flex items-start gap-3">
-                <ShieldCheck className="w-6 h-6 text-indigo-600 mt-1" />
-                <div>
-                  <p className="font-semibold text-slate-900">Safe & Controlled AI</p>
-                  <p className="text-sm text-slate-600">
-                    No prompt misuse. No student access. Teacher-only generation.
-                  </p>
-                </div>
-              </li>
-              <li className="flex items-start gap-3">
-                <FolderLock className="w-6 h-6 text-indigo-600 mt-1" />
-                <div>
-                  <p className="font-semibold text-slate-900">Shared School Library</p>
-                  <p className="text-sm text-slate-600">
-                    Reuse approved materials across grade levels and subjects.
-                  </p>
-                </div>
-              </li>
-              <li className="flex items-start gap-3">
-                <BarChart3 className="w-6 h-6 text-indigo-600 mt-1" />
-                <div>
-                  <p className="font-semibold text-slate-900">Usage & Insights</p>
-                  <p className="text-sm text-slate-600">
-                    See adoption, usage, and material creation across staff.
-                  </p>
-                </div>
-              </li>
-            </ul>
+            <div className="lg:col-span-5 animate-in fade-in slide-in-from-right-8 duration-700">
+              <div className="bg-white rounded-[2.5rem] shadow-[0_40px_80px_rgba(0,0,0,0.06)] border border-slate-100 p-8 md:p-10 space-y-8">
+                <h3 className="text-xl font-bold text-slate-900 mb-6 flex items-center gap-2">
+                  <Zap className="text-indigo-600" size={20} fill="currentColor" />
+                  School Highlights
+                </h3>
+                {[
+                  { 
+                    icon: <ShieldCheck className="text-emerald-500" />, 
+                    title: 'Safe & Controlled AI', 
+                    desc: 'Role-based access ensures only staff can generate content.' 
+                  },
+                  { 
+                    icon: <FolderLock className="text-indigo-500" />, 
+                    title: 'Shared Material Library', 
+                    desc: 'Collaborate on approved worksheets across departments.' 
+                  },
+                  { 
+                    icon: <BarChart3 className="text-blue-500" />, 
+                    title: 'Usage Analytics', 
+                    desc: 'Monitor adoption and productivity metrics in one dashboard.' 
+                  }
+                ].map((item, i) => (
+                  <div key={i} className="flex items-start gap-4 group">
+                    <div className="w-12 h-12 bg-slate-50 rounded-2xl flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
+                      {item.icon}
+                    </div>
+                    <div>
+                      <p className="font-bold text-slate-900 text-sm tracking-tight">{item.title}</p>
+                      <p className="text-xs text-slate-500 font-medium leading-relaxed mt-1">{item.desc}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
         </section>
 
-        {/* Features */}
-        <section className="bg-white border-t border-slate-200 py-20 animate-fade-in-up-2">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 className="text-3xl font-semibold text-center text-slate-900 mb-12">
-              Built for School-Wide Use
-            </h2>
+        {/* Feature Bento Grid */}
+        <section className="bg-white py-32 border-y border-slate-50">
+          <div className="max-w-7xl mx-auto px-6">
+            <div className="text-center max-w-2xl mx-auto mb-20">
+              <h2 className="text-4xl font-black text-slate-900 tracking-tight mb-4">Built for School-Wide Deployment</h2>
+              <p className="text-slate-500 font-medium leading-relaxed text-lg">Every feature is designed to bridge the gap between AI innovation and institutional requirements.</p>
+            </div>
 
             <div className="grid md:grid-cols-3 gap-8">
-              <div className="bg-slate-50 rounded-xl p-6 border border-slate-200">
-                <Users className="w-10 h-10 text-indigo-600 mb-4" />
-                <h3 className="font-semibold text-slate-900 mb-2">
-                  Teacher Accounts
-                </h3>
-                <p className="text-sm text-slate-600">
-                  Unlimited teachers under one school license.
-                </p>
-              </div>
-
-              <div className="bg-slate-50 rounded-xl p-6 border border-slate-200">
-                <ShieldCheck className="w-10 h-10 text-indigo-600 mb-4" />
-                <h3 className="font-semibold text-slate-900 mb-2">
-                  Admin Control
-                </h3>
-                <p className="text-sm text-slate-600">
-                  Control access, view usage, and manage content standards.
-                </p>
-              </div>
-
-              <div className="bg-slate-50 rounded-xl p-6 border border-slate-200">
-                <FolderLock className="w-10 h-10 text-indigo-600 mb-4" />
-                <h3 className="font-semibold text-slate-900 mb-2">
-                  Standards Alignment
-                </h3>
-                <p className="text-sm text-slate-600">
-                  Ensure all materials align to approved curriculum standards.
-                </p>
-              </div>
+              {[
+                {
+                  icon: <Users className="w-10 h-10 text-indigo-600 mb-6" />,
+                  title: 'Unlimited Staff Seats',
+                  desc: 'One flat fee covers all your teachers, TAs, and administrators. No per-seat friction.'
+                },
+                {
+                  icon: <ShieldCheck className="w-10 h-10 text-indigo-600 mb-6" />,
+                  title: 'Admin Command Center',
+                  desc: 'Standardize prompt outputs and ensure all generated materials meet district quality benchmarks.'
+                },
+                {
+                  icon: <CheckCircle2 className="w-10 h-10 text-indigo-600 mb-6" />,
+                  title: 'Standards Compliance',
+                  desc: 'Enable state-specific standards alignment for every document created on the platform.'
+                }
+              ].map((feature, i) => (
+                <div key={i} className="bg-slate-50 border border-slate-100 p-10 rounded-[2rem] hover:bg-white hover:shadow-xl hover:shadow-indigo-50/50 transition-all duration-500 group">
+                  {feature.icon}
+                  <h3 className="text-2xl font-bold text-slate-900 mb-4">{feature.title}</h3>
+                  <p className="text-slate-500 font-medium leading-relaxed">{feature.desc}</p>
+                </div>
+              ))}
             </div>
           </div>
         </section>
 
-        {/* CTA */}
-        <section className="py-20 bg-indigo-600 text-center">
-          <h2 className="text-3xl font-semibold text-white mb-4">
-            Bring Draft to Your School
-          </h2>
-          <p className="text-indigo-100 mb-8 max-w-2xl mx-auto">
-            Empower teachers while keeping administrators in control.
-          </p>
-          <Link
-            href="/pricing"
-            className="inline-flex items-center gap-2 px-8 py-3 bg-white text-indigo-600 rounded-lg font-semibold hover:bg-slate-100"
-          >
-            See School Pricing <ArrowRight className="w-4 h-4" />
-          </Link>
+        {/* CTA Section */}
+        <section className="max-w-7xl mx-auto px-6 py-24">
+          <div className="bg-slate-900 rounded-[3rem] p-12 md:p-20 text-center relative overflow-hidden shadow-2xl shadow-slate-200">
+            {/* Background pattern */}
+            <div className="absolute inset-0 opacity-10 pointer-events-none" style={{ backgroundImage: 'radial-gradient(circle at 2px 2px, white 1px, transparent 0)', backgroundSize: '40px 40px' }} />
+            
+            <div className="relative z-10">
+              <h2 className="text-4xl md:text-5xl font-black text-white tracking-tight mb-6">
+                Ready to empower your staff?
+              </h2>
+              <p className="text-slate-400 text-lg font-medium mb-10 max-w-2xl mx-auto">
+                Join hundreds of schools currently using DraftStudio to reclaim thousands of hours of teacher time.
+              </p>
+              <Link
+                href="/pricing"
+                className="inline-flex items-center gap-3 px-10 py-5 bg-indigo-600 text-white rounded-2xl font-bold text-xl hover:bg-indigo-700 transition-all shadow-xl shadow-indigo-500/20 active:scale-[0.98]"
+              >
+                See School Pricing <ArrowRight size={22} />
+              </Link>
+              <p className="mt-8 text-[11px] font-black text-slate-500 uppercase tracking-[0.3em]">
+                Fast Setup &bull; FERPA Compliant &bull; 24/7 Support
+              </p>
+            </div>
+          </div>
         </section>
-      <Footer />
-    </main>
-  </div>
-)
+
+        <Footer />
+      </main>
+    </div>
+  )
 }
