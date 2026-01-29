@@ -5,6 +5,7 @@ import Alert from '../../components/Alert.js'
 import MathDisplay from '../../components/MathDisplay.js'
 import { ArrowLeft, Edit2, Save, X, Download, Trash2, FileText, Plus, ChevronDown, ChevronUp, FileDown } from 'lucide-react'
 import { supabase } from '../../lib/supabase'
+import ExportDropdown from '../../components/ExportDropdown.js'
 
 
 export async function getServerSideProps(context) {
@@ -455,38 +456,22 @@ export default function DocumentView({ session, loading: appLoading }) {
        </div>
 
 
-       {/* Action Buttons */}
-       <div className="flex flex-wrap gap-3 mb-8 animate-fade-in-up-2">
-         <button
-           onClick={() => exportToPdf(false)}
-           className="flex items-center gap-2 px-4 py-2.5 bg-indigo-600 text-white rounded-lg hover:bg-blue-700 transition font-medium"
-         >
-           <FileDown className="w-4 h-4" />
-           Export PDF (Questions Only)
-         </button>
-         <button
-           onClick={() => exportToPdf(true)}
-           className="flex items-center gap-2 px-4 py-2.5 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 transition font-medium"
-         >
-           <FileDown className="w-4 h-4" />
-           Export PDF (With Answer Key)
-         </button>
-         <button
-           onClick={() => setAlert({ message: 'Copy to Google Docs coming soon!', type: 'info' })}
-           className="flex items-center gap-2 px-4 py-2.5 border border-slate-300 text-slate-700 rounded-lg hover:bg-slate-50 transition font-medium"
-         >
-           <Download className="w-4 h-4" />
-           Copy for Google Docs
-         </button>
-         <button
-           onClick={handleDelete}
-           disabled={deleting}
-           className="flex items-center gap-2 px-4 py-2.5 border border-red-300 text-red-600 rounded-lg hover:bg-red-50 transition disabled:opacity-50 font-medium ml-auto"
-         >
-           <Trash2 className="w-4 h-4" />
-           {deleting ? 'Deleting...' : 'Delete'}
-         </button>
-       </div>
+      {/* Action Buttons Container */}
+<div className="flex flex-wrap items-center justify-between gap-4 mb-10 animate-fade-in-up-2">
+  
+  {/* The New Component: Consolidates all export logic */}
+  <ExportDropdown onExport={exportToPdf} />
+
+  {/* Refined Standalone Delete Button */}
+  <button
+    onClick={handleDelete}
+    disabled={deleting}
+    className="group flex items-center gap-2 px-6 py-2.5 text-red-500 hover:bg-red-50 rounded-2xl transition-all duration-300 font-black uppercase text-[10px] tracking-[0.2em] disabled:opacity-30"
+  >
+    <Trash2 className="w-4 h-4 group-hover:scale-110 transition-transform" />
+    {deleting ? 'Purging Material...' : 'Delete Permanently'}
+  </button>
+</div>
 
 
        {/* Questions Container */}

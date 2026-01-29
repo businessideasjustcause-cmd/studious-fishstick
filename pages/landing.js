@@ -2,9 +2,9 @@ import Link from 'next/link'
 import NavHeader from '@/components/NavHeader'
 import HowItWorksSection from '@/components/HowItWorksSection'
 import Footer from '@/components/Footer'
-import { CheckCircle, ArrowRight, Sparkles } from 'lucide-react'
+import { CheckCircle, ShieldCheck, Database, ArrowRight, Sparkles } from 'lucide-react'
 import FillButton from '@/components/FillButton'
-import { FileText, Clock, Download, Users, BarChart2 } from 'lucide-react'
+import { ArrowUpRight, Clock, Download, Users, BarChart2 } from 'lucide-react'
 import Phone from '@/components/Phone'
 
 export default function Hero() {
@@ -184,78 +184,104 @@ const words = ["Teaching.", "Growing.", "Learning.", "Impacting.", "Teaching."];
   </div>
 </section>
 
-
-
         <HowItWorksSection />
 
-      {/* Features Bento Grid */}
-<section className="py-12 bg-[#FDFDFD] relative overflow-hidden">
-  <div className="max-w-7xl mx-auto px-6 lg:px-8">
-    <div className="text-center mb-20 animate-in fade-in slide-in-from-bottom-4 duration-700">
-      <span className="text-[10px] font-black uppercase tracking-[0.3em] text-indigo-600 bg-indigo-50 px-4 py-1.5 rounded-full mb-4 inline-block border border-indigo-100">
-        Platform Excellence
-      </span>
-      <h2 className="text-5xl md:text-6xl font-black text-slate-950 mb-6 tracking-tighter">
-        Everything Teachers Need
-      </h2>
-      <p className="text-slate-500 text-xl max-w-2xl mx-auto font-medium leading-relaxed">
-        Designed by educators, for educators. High-quality materials, <span className="text-slate-900 underline decoration-indigo-200 decoration-4">minus the manual labor.</span>
-      </p>
-    </div>
-
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-      {[
-        { icon: FileText, title: "Standards Aligned", text: "Every prompt is cross-referenced with regional curriculum maps.", color: "text-indigo-600", bg: "bg-indigo-50" },
-        { icon: Clock, title: "Save 10+ Hours", text: "Reclaim your weekends. Planning that used to take hours now takes clicks.", color: "text-emerald-600", bg: "bg-emerald-50" },
-        { icon: Download, title: "Export Anywhere", text: "Seamlessly move content to Google Classroom, Canvas, or PDF.", color: "text-indigo-600", bg: "bg-blue-50" },
-        { icon: CheckCircle, title: "Smart Keys", text: "Answer keys generated automatically for every single worksheet.", color: "text-purple-600", bg: "bg-purple-50" },
-      ].map((feature, index) => (
-        <div key={index} className="group relative bg-white p-10 rounded-[2.5rem] border border-slate-100 shadow-[0_10px_30px_-15px_rgba(0,0,0,0.05)] hover:shadow-[0_30px_60px_-15px_rgba(0,0,0,0.1)] hover:-translate-y-2 transition-all duration-500 ease-[cubic-bezier(0.34,1.56,0.64,1)]">
-          <div className={`inline-flex p-5 rounded-[1.5rem] ${feature.bg} ${feature.color} mb-8 shadow-sm group-hover:scale-110 group-hover:rotate-3 transition-transform duration-500`}>
-            <feature.icon className="w-8 h-8" strokeWidth={2.5} />
-          </div>
-          <h3 className="text-2xl font-black text-slate-950 mb-4 tracking-tight">
-            {feature.title}
-          </h3>
-          <p className="text-slate-500 font-medium leading-relaxed mb-6">
-            {feature.text}
-          </p>
-          <div className="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-slate-300 group-hover:text-indigo-600 transition-colors">
-            Details <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
-          </div>
-        </div>
-      ))}
-    </div>
+<section 
+  className="relative bg-[#FDFDFD] py-5 md:py-5 overflow-hidden"
+  style={{
+    // The "Seamless Bleed": creates a long, natural fade into adjacent sections
+    maskImage: 'linear-gradient(to bottom, transparent, black 10%, black 90%, transparent)',
+    WebkitMaskImage: 'linear-gradient(to bottom, transparent, black 10%, black 90%, transparent)',
+  }}
+>
+  {/* 2026 High-Fidelity Background: Orbital Glows */}
+  <div className="absolute inset-0 pointer-events-none z-0">
+    <div className="absolute top-[-10%] left-[5%] w-[50%] h-[50%] bg-indigo-200/20 blur-[140px] rounded-full animate-pulse" />
+    <div className="absolute bottom-[-10%] right-[-5%] w-[40%] h-[40%] bg-violet-100/20 blur-[120px] rounded-full" />
   </div>
-</section>
 
-
-
-
-{/* Stats */}
-<section className="bg-white py-12 sm:py-16">
-  <div className="max-w-7xl mx-auto px-6 lg:px-8">
-    <div className="mx-auto max-w-2xl lg:max-w-none">
-      <div className="grid grid-cols-1 gap-8 sm:grid-cols-3">
-        {[
-          { icon: Users, value: "5,000+", label: "Teachers Using Platform" },
-          { icon: BarChart2, value: "20,000+", label: "Materials Created" },
-          { icon: Clock, value: "100+ hrs", label: "Saved Weekly" },
-        ].map((stat, index) => (
-          <div
-            key={index}
-            className="flex flex-col gap-y-3 rounded-3xl bg-indigo-50 p-8 text-center border border-indigo-100 shadow-sm transition-all duration-300 hover:shadow-lg hover:-translate-y-1 hover:bg-white"
-          >
-            <div className="mx-auto rounded-full bg-indigo-100 p-4">
-              <stat.icon className="h-8 w-8 text-indigo-600" aria-hidden="true" />
-            </div>
-            <dt className="text-sm font-semibold leading-6 text-indigo-950">{stat.label}</dt>
-            <dd className="order-first text-5xl font-extrabold tracking-tight text-indigo-950">
-              {stat.value}
-            </dd>
-          </div>
-        ))}
+  <div className="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
+    
+    {/* Header: Brutalist Typography with Utility Sub-text */}
+    <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-10 mb-28">
+      <div className="max-w-3xl">
+        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white border border-slate-200 shadow-sm mb-8">
+        </div>
+        <h2 className="text-6xl md:text-9xl font-black text-slate-900 tracking-tighter leading-[0.8] mb-8">
+          Proven at <br /> 
+          <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 via-indigo-400 to-violet-600 italic">global scale.</span>
+        </h2>
       </div>
+      
+      <div className="lg:mb-4">
+        <p className="text-slate-500 text-lg font-medium max-w-sm leading-relaxed border-l-2 border-indigo-100 pl-6">
+          Architecting institutional intelligence across <span className="text-slate-900 font-bold">450+ high-performing</span> school districts.
+        </p>
+      </div>
+    </div>
+
+    {/* Bento Grid: Interactive Surface Cards */}
+    <div className="grid grid-cols-1 gap-8 lg:grid-cols-12 auto-rows-fr">
+      {[
+        { 
+          icon: Users, 
+          value: "5,000", 
+          suffix: "+",
+          label: "Active Educators", 
+          desc: "Teachers deploying neural drafts daily.",
+          gridSpan: "lg:col-span-4",
+          accent: "group-hover:bg-indigo-600"
+        },
+        { 
+          icon: BarChart2, 
+          value: "20,000", 
+          suffix: "+",
+          label: "Drafts Architected", 
+          desc: "Proprietary Llama-3.1 pedagogical builds.",
+          gridSpan: "lg:col-span-5",
+          accent: "group-hover:bg-violet-600"
+        },
+        { 
+          icon: Clock, 
+          value: "100", 
+          suffix: "hrs",
+          label: "Efficiency Gain", 
+          desc: "Saved per teacher, every semester.",
+          gridSpan: "lg:col-span-3",
+          accent: "group-hover:bg-slate-900"
+        },
+      ].map((stat, index) => (
+        <Link
+          key={index}
+          href="/resources"
+          className={`${stat.gridSpan} group relative flex flex-col justify-between rounded-[3.5rem] bg-white p-12 border border-slate-200/60 shadow-sm transition-all duration-700 hover:shadow-[0_40px_80px_-15px_rgba(0,0,0,0.1)] hover:-translate-y-4 overflow-hidden`}
+        >
+          <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
+
+          <div className="relative z-10">
+            <div className={`w-16 h-16 rounded-2xl bg-slate-50 flex items-center justify-center border border-slate-100 mb-12 transition-all duration-500 group-hover:rotate-6 ${stat.accent}`}>
+              <stat.icon className="h-7 w-7 text-slate-900 group-hover:text-white transition-colors duration-500" />
+            </div>
+            
+            <div className="flex items-baseline gap-1">
+              <dd className="text-7xl md:text-8xl font-black tracking-tighter text-slate-900 group-hover:text-indigo-600 transition-all duration-700">
+                {stat.value}
+              </dd>
+              <span className="text-2xl font-black text-indigo-400">{stat.suffix}</span>
+            </div>
+          </div>
+
+          <div className="relative z-10 mt-20">
+            <div className="flex items-center justify-between mb-4">
+               <dt className="text-[11px] font-black uppercase tracking-[0.4em] text-slate-400 group-hover:text-indigo-600 transition-colors">
+                {stat.label}
+              </dt>
+              <ArrowUpRight className="text-slate-300 w-5 h-5 opacity-0 group-hover:opacity-100 group-hover:translate-x-1 group-hover:-translate-y-1 transition-all" />
+            </div>
+            <p className="text-slate-600 text-sm font-bold leading-relaxed">{stat.desc}</p>
+          </div>
+        </Link>
+      ))}
     </div>
   </div>
 </section>

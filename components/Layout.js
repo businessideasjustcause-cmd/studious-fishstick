@@ -115,10 +115,32 @@ export default function Layout({ children, session, loading }) {
 
       {/* DESKTOP SIDEBAR */}
       <aside className={`hidden md:flex fixed left-0 top-0 h-screen bg-white border-r border-slate-200 flex-col z-30 transition-all duration-500 ease-[cubic-bezier(0.4,0,0.2,1)] ${isCollapsed ? 'w-20' : 'w-64'}`}>
-        <div className="h-20 flex items-center px-6 overflow-hidden">
-          <img src="/Tutor.svg" alt="Tutor" className="w-8 h-8 min-w-[32px]" />
-          <span className={`ml-4 text-xl font-bold text-slate-900 transition-all duration-300 ${isCollapsed ? 'opacity-0 translate-x-10' : 'opacity-100 translate-x-0'}`}>Draft</span>
-        </div>
+        <div className="h-24 flex items-center px-5 overflow-hidden">
+  <div className="relative group">
+    {/* Ambient Glow: Only visible on hover */}
+    <div className="absolute -inset-1 bg-indigo-500 rounded-xl blur opacity-0 group-hover:opacity-30 transition-opacity duration-500" />
+    
+    {/* The Badge: High-contrast Slate with slight rotation */}
+    <div className="relative bg-indigo-200 p-2 rounded-xl group-hover:-rotate-6 transition-transform duration-300">
+      <img 
+        src="/Tutor.svg" 
+        alt="DS" 
+        className="w-6 h-6 min-w-[24px]" 
+      />
+    </div>
+  </div>
+
+  {/* Brand Name: Black, Tighter, and Uppercase */}
+  <span 
+    className={`
+      ml-4 text-xl font-black tracking-[-0.05em] text-slate-900 uppercase transition-all duration-500 
+      ${isCollapsed ? 'opacity-0 translate-x-10' : 'opacity-100 translate-x-0'}
+    `}
+  >
+    Draft<span className="text-indigo-600 italic font-black">Studio</span>
+  </span>
+</div>
+
 
         <nav className="flex-1 px-3 space-y-1.5 mt-4">
           {navItems.map(item => {
