@@ -31,10 +31,10 @@ export default function Alert({ message, type = 'success', duration = 4000, onCl
       IconComponent: AlertCircle,
     },
     info: {
-      bg: 'bg-blue-50',
-      border: 'border-blue-200',
-      icon: 'text-blue-600',
-      text: 'text-blue-800',
+      bg: 'bg-indigo-50',
+      border: 'border-indigo-200',
+      icon: 'text-indigo-600',
+      text: 'text-indigo-800',
       IconComponent: Info,
     },
   }

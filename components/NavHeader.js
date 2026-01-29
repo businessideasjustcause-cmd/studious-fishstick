@@ -27,24 +27,27 @@ export default function NavHeader({ currentPage = 'home' }) {
     <header className="fixed top-0 w-full z-50 bg-white/80 backdrop-blur-md border-b border-slate-100 transition-all duration-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
         
-        {/* Logo */}
-        <Link href="/" className="flex items-center gap-2 group transition-transform active:scale-95">
-          <div className="bg-blue-50 p-1.5 rounded-lg group-hover:bg-blue-100 transition-colors">
-            <Image src="/Tutor.svg" alt="Draft" width={24} height={24} className="w-6 h-6" />
+                
+        {/* Logo: Upgraded to font-black and tracking-tighter */}
+        <Link href="/landing" className="flex items-center gap-3 group transition-all active:scale-95">
+          <div className="bg-indigo-50 p-2 rounded-xl group-hover:bg-indigo-100 group-hover:rotate-6 transition-all duration-500">
+            <Image src="/Tutor.svg" alt="DraftStudio" width={28} height={28} className="w-7 h-7" />
           </div>
-          <span className="text-xl font-bold tracking-tight text-slate-900">Draft</span>
+          <span className="text-2xl font-black tracking-[-0.06em] text-slate-900 uppercase">
+            Draft<span className="text-indigo-600 italic">Studio</span>
+          </span>
         </Link>
-
+        
         {/* Desktop Navigation */}
         <nav className="hidden md:flex items-center gap-8">
           {navItems.map((item) => (
             <Link 
               key={item.id} 
               href={item.href} 
-              className={`text-sm font-medium transition-colors relative py-1 group ${currentPage === item.id ? 'text-blue-600' : 'text-slate-500 hover:text-slate-900'}`}
+              className={`text-sm font-medium transition-colors relative py-1 group ${currentPage === item.id ? 'text-indigo-600' : 'text-slate-500 hover:text-slate-900'}`}
             >
               {item.label}
-              <span className={`absolute bottom-0 left-0 w-full h-0.5 bg-blue-600 transform origin-left transition-transform duration-300 ${currentPage === item.id ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'}`} />
+              <span className={`absolute bottom-0 left-0 w-full h-0.5 bg-indigo-600 transform origin-left transition-transform duration-300 ${currentPage === item.id ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'}`} />
             </Link>
           ))}
         </nav>
@@ -58,7 +61,7 @@ export default function NavHeader({ currentPage = 'home' }) {
           {/* Blue CTA Button */}
           <Link 
             href={cta.href} 
-            className="inline-flex items-center justify-center px-5 py-2.5 bg-blue-600 text-white text-sm font-semibold rounded-full hover:bg-blue-700 hover:shadow-lg hover:shadow-blue-200 transition-all duration-200 active:scale-95"
+            className="inline-flex items-center justify-center px-5 py-2.5 bg-indigo-600 text-white text-sm font-semibold rounded-full hover:bg-blue-700 hover:shadow-lg hover:shadow-blue-200 transition-all duration-200 active:scale-95"
           >
             {cta.label}
           </Link>
@@ -88,7 +91,7 @@ export default function NavHeader({ currentPage = 'home' }) {
               key={item.id}
               href={item.href}
               onClick={() => setIsMenuOpen(false)}
-              className={`block px-4 py-3 rounded-xl text-base font-medium ${currentPage === item.id ? 'bg-blue-50 text-blue-600' : 'text-slate-600 hover:bg-slate-50'}`}
+              className={`block px-4 py-3 rounded-xl text-base font-medium ${currentPage === item.id ? 'bg-indigo-50 text-indigo-600' : 'text-slate-600 hover:bg-slate-50'}`}
             >
               {item.label}
             </Link>

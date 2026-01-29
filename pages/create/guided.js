@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
-import Layout from '../components/Layout'
-import DocumentForm from '../components/DocumentForm'
-import { createDocument } from '../lib/supabase'
+import Layout from '../../components/Layout'
+import DocumentForm from '../../components/DocumentForm'
+import { createDocument } from '../../lib/supabase'
 import { Sparkles, ArrowLeft, AlertCircle, FilePlus2, Wand2 } from 'lucide-react'
 import LoginFooter from '@/components/Loginfooter'
 
@@ -62,10 +62,10 @@ export default function CreatePage({ session, loading: appLoading }) {
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 pb-8 border-b border-slate-100 gap-6">
           <div className="space-y-2">
             <button 
-              onClick={() => router.push('/materials')}
+              onClick={() => router.push('/select')}
               className="flex items-center text-xs font-black uppercase tracking-widest text-slate-400 hover:text-indigo-600 transition-colors mb-4"
             >
-              <ArrowLeft size={14} className="mr-2" /> Back to Library
+              <ArrowLeft size={14} className="mr-2" /> Back to Select
             </button>
             <h1 className="text-4xl font-black text-slate-900 tracking-tight flex items-center gap-3">
               Create Material <Wand2 className="text-indigo-500" size={28} />

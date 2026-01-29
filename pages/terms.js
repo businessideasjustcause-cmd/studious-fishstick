@@ -16,7 +16,7 @@ export default function TermsPage({ session, loading }) {
           These terms govern the use of the DraftStudio workspace and the intellectual property rights associated with AI-generated educational materials.
         </p>
         <p className="mt-4 text-[10px] font-black text-slate-400 uppercase tracking-[0.3em]">
-          Last Updated: January 26, 2026
+          Last Updated: January 28, 2026
         </p>
       </div>
 
@@ -28,7 +28,7 @@ export default function TermsPage({ session, loading }) {
             <h2 className="text-2xl font-black">Ownership & IP</h2>
           </div>
           <p className="text-slate-300 leading-relaxed font-medium">
-            Users retain full ownership of all prompts and curriculum data uploaded. DraftStudio assigns all rights to the generated AI output to the user for instructional and commercial use.
+            Users retain full ownership of all prompts and curriculum data uploaded. DraftStudio assigns all rights to the generated AI output to the user for instructional use.
           </p>
         </section>
 
@@ -47,6 +47,8 @@ export default function TermsPage({ session, loading }) {
                 </p>
               </div>
             </div>
+            
+
             
             <div className="p-6 border border-slate-100 rounded-[2rem] bg-white shadow-sm flex items-start gap-4">
               <FileText className="text-indigo-600 shrink-0 mt-1" size={20} />

@@ -62,7 +62,7 @@ export default function MaterialsPage({ session, loading }) {
             </div>
             
             <button 
-              onClick={() => router.push('/create')} 
+              onClick={() => router.push('/select')} 
               className="bg-indigo-600 text-white px-6 py-4 rounded-2xl shadow-xl shadow-indigo-100 hover:scale-105 active:scale-95 transition-all flex items-center gap-2 font-bold"
             >
               <Plus size={20} strokeWidth={3}/> New Document

@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import Link from 'next/link'
-import { Mail, Lock, AlertCircle, ArrowRight, CheckCircle2, Shield, Scale } from 'lucide-react'
+import { Mail, Lock, AlertCircle, ArrowLeft, ArrowRight, CheckCircle2, Shield, Scale } from 'lucide-react'
 import { supabase } from '../lib/supabase'
 
 export default function Login({ session, loading }) {
@@ -48,6 +48,16 @@ export default function Login({ session, loading }) {
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center p-6 bg-[#FAFAFA] selection:bg-indigo-100 selection:text-indigo-900">
+     
+       {/* Back Button */}
+      <Link 
+        href="/" 
+        className="absolute top-8 left-8 z-50 flex items-center gap-2 px-4 py-2 bg-white/80 backdrop-blur-md border border-slate-100 rounded-full text-slate-500 hover:text-indigo-600 hover:border-indigo-100 hover:shadow-lg hover:shadow-indigo-500/5 transition-all group font-bold text-sm"
+      >
+        <ArrowLeft size={18} className="group-hover:-translate-x-1 transition-transform" />
+        Back to Landing
+      </Link>
+     
       {/* 2026 Dynamic Background */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute top-[-10%] right-[-10%] w-[600px] h-[600px] bg-indigo-200/20 blur-[120px] rounded-full animate-pulse" />

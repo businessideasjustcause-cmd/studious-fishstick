@@ -11,7 +11,7 @@ function MyApp({ Component, pageProps }) {
   const [loading, setLoading] = useState(true)
 
   // 1. Strict definition of what is a "Dashboard" page
-  const protectedPages = ['/', '/create', '/materials', '/profile', '/billing', '/generate-document']
+  const protectedPages = ['/','/select', '/create/smart','/create/guided', '/materials', '/profile', '/billing', '/generate-document']
   const isProtected = protectedPages.includes(router.pathname) || router.pathname.startsWith('/materials/')
   
   // 2. Auth pages (login/signup)

@@ -5,7 +5,7 @@ import { LayoutDashboard, PlusCircle, History, ChevronLeft, Menu, LogOut, Lock, 
 
 const navItems = [
   { path: '/', label: 'Dashboard', icon: LayoutDashboard },
-  { path: '/create', label: 'Create New', icon: PlusCircle },
+  { path: '/select', label: 'Create New', icon: PlusCircle },
   { path: '/materials', label: 'My Materials', icon: History },
 ]
 

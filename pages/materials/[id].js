@@ -327,6 +327,7 @@ export default function DocumentView({ session, loading: appLoading }) {
    }
  };
 
+ 
  /**
   * FIXED DELETE MATERIAL
   * Handles the state during deletion and provides a smooth redirect
@@ -458,7 +459,7 @@ export default function DocumentView({ session, loading: appLoading }) {
        <div className="flex flex-wrap gap-3 mb-8 animate-fade-in-up-2">
          <button
            onClick={() => exportToPdf(false)}
-           className="flex items-center gap-2 px-4 py-2.5 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition font-medium"
+           className="flex items-center gap-2 px-4 py-2.5 bg-indigo-600 text-white rounded-lg hover:bg-blue-700 transition font-medium"
          >
            <FileDown className="w-4 h-4" />
            Export PDF (Questions Only)

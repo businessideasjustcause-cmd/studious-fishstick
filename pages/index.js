@@ -88,7 +88,7 @@ export default function Home({ session, loading: appLoading }) {
         {/* Action Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
           <button 
-            onClick={() => router.push('/create')}
+            onClick={() => router.push('/select')}
             className="group relative overflow-hidden bg-white p-8 rounded-3xl border border-slate-200 shadow-sm transition-all hover:shadow-xl hover:-translate-y-1 active:scale-[0.98]"
           >
             <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
